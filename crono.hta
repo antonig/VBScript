@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>cronometro</title>
+<!-- 
+cronometro by antoni gual 3/2019
+using setinterval, formatting a time string, changing the caption and use of a button
+-->
+
+<HTA:APPLICATION
+  APPLICATIONNAME="crono"
+  BORDER="Thin"
+  MaximizeButton= "no"
+  SCROLL="no"/>
+
+<style type="text/css">
+body {
+	background-color: white;
+	color: darkblue;
+	font-family: Calibri;
+	font-size: 12pt;
+  text-align:center;
+	margin: 1em 1em;
+}
+[id="Crono"] {font-size: 36pt;font-family: Courier New;}
+input { 
+    text-align: center;
+    font-size: 12pt;    
+}
+</style>
+
+
+<script language="VBScript">
+Option Explicit
+dim o,tim,crono
+
+
+function calcdisplay(x)
+  dim tenth,sec,min,hrs,temp
+  temp=x
+  tenth=temp mod 10
+  temp=temp\10
+  sec=temp mod 60
+  temp=temp\60
+  min=temp mod 60
+  hrs=temp\60
+  calcdisplay=right("00"& hrs,2) & ":" &right("00"& min,2)  & ":" & right("00"&sec,2)  & "." & tenth  
+end function
+  
+sub updateCrono()
+
+  crono=crono+1
+  o.innerhtml=calcdisplay(crono)
+end sub
+  
+sub startstop(obj)
+if obj.value="Start" then
+ tim=window.setInterval("UpdateCrono", 100)
+  document.getElementById( "SSButton" ).value="Stop"
+else
+ window.cleartimeout(tim)
+ document.getElementById( "SSButton" ).value="Start"
+ crono=0
+ 'o.innerhtml="00:00:00.0"
+end if
+ 
+end sub
+
+Sub Window_OnLoad
+  set o= document.getElementById( "Crono" ) 
+   
+	window.resizeTo 340, 180
+	 o.innerhtml="00:00:00.0"
+End Sub
+</script>
+</head>
+<body>
+
+<p id="Crono"></p>
+
+<p>&nbsp;<input type=button id="SSButton" value="Start" onclick="startStop Me"</p>
+
+</body>
+</html>
