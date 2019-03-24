@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+<!--
+An HTA app that factorizes integers from 2 to 999,999,999,999,999
+by Antoni Gual 2019
+-----------------------------------------------------------------------------------------
+The limit to 10^16-1 is because it's the biggest value VBS displays in non-exponential notation
+VBS uses doubles for calculations so the limit could be 2^53 if it was'nt for the display limit 
+Only  thelogical, \ and mod operators convert values to 32 bit integers and rise overflow errors 
+with values >2^32-1 so i had to use the workaround  n - i* int(n/i) in the place of mod.
+
+----------------------------------------------------------------------------
+ -->
+<html>
+<head>
+<title>Factorize</title>
+
+<HTA:APPLICATION
+  APPLICATIONNAME="Primality test"
+  BORDER="Thin"
+  MaximizeButton= "no"
+  SCROLL="no"/>
+
+<style type="text/css">
+body {
+	background-color: white;
+	color: darkblue;
+	font-family: Calibri;
+	font-size: 12pt;
+  text-align:center;
+	margin: 1em 1em;
+}
+input { 
+    text-align: center;
+    font-size: 18pt;    
+}
+</style>
+
+
+<script language="VBScript">
+Option Explicit
+dim o
+
+' 1234567891 is prime
+' 46021 x 46027 =2118208567
+' 2^29*3= 1610612736
+' 2^3*3^3*5^3 =27000
+'223092870 = 2 * 3 * 5 * 7 * 11 * 13 * 17 * 19 * 23 
+
+
+function NextFactor(intinput) 
+'returns the lowest prime factor of the input or 1 if prime
+  Dim i, intSqrtin,incr
+	If intInput < 25 Then
+	  select case intInput
+	  case 2,3,5,7,11,13,17,19,23: 
+		   NextFactor=1
+	  case 9,15,21   
+        NextFactor=3
+    case else
+        NextFactor=2    
+    end select 	
+	else 
+    NextFactor=1 
+    for i=2 to 3
+      if (intInput-i*int(intInput/i))=0 Then NextFactor= i :Exit function 'do not use mod as it's limited to 2^32-1
+        'If intInput Mod i = 0 Then NextFactor= i :Exit function
+    next 
+    incr=2 
+    intsqrtin=int(sqr(intinput))    
+		For i = 5 To intsqrtin step incr      'skip multiples of 2 and 3
+      if (intInput-i* int(intInput/i))=0 Then NextFactor= i :Exit function  'do not use mod as it's limited to 2^32-1
+			'If intInput Mod i = 0 Then NextFactor=i :Exit function
+		  incr=6-incr
+		Next
+	End If
+end function
+
+Function ValidateInput(strinput)
+'check user input for a positive longintngint
+  validateinput=0
+  if not isnumeric(strinput) then 
+    validateinput=1 
+  elseif strinput<2 then 
+    validateinput=3
+  else                      
+    'on error resume next
+    if strinput >999999999999999 then validateinput=2 
+    'strInput =Clng(strinput)
+    'if err  then  validateinput=2  
+    'on error goto 0
+  end if  
+end function
+
+function getallfactors(intinput) 
+'returns a string with the factorization or "" if prime
+'dictionnary is a little overkill as it will keep 9 items maximum...
+Dim dict:Set dict = CreateObject ("Scripting.Dictionary")
+dim n,i,s,s1,j
+	n= intinput
+	do
+	  i=NextFactor(n)
+	  if i=1 then exit do
+	  if  dict.exists(i) then  dict(i)=dict(i)+1  else dict.add i,1
+ 	  n=n/i      	  'do not use \ as it's limited to 2^32-1
+	loop
+	
+    'if not prime add last factor and build output string	
+    if dict.count>0  then	
+		if dict.exists(n) then dict(n)=dict(n)+1 else dict.add n,1
+		'builds output string   
+		For Each j In dict.keys 
+			s1="" & j : if dict(j)>1 then s1= s1 &"^"&dict(j)
+			s=s & s1 & " * "   
+		next
+		'remove last *
+		getallfactors=left(s,len(s)-2)
+	end if
+	set dict=nothing
+end function
+
+
+sub EnterPressed()
+   if window.event.Keycode=13 then checkifprime()
+end sub   
+ 
+Sub CheckIfPrime( )
+  'checks input, calls factorization, prints output and error messages
+  Dim intinput,s
+  intInput = document.getElementById( "InputNumber" ).value
+  select case  validateinput(intInput) 
+  case 1:
+    o.InnerHTML="Non numeric input. Retry "
+  case 2:
+    o.InnerHTML="Sorry, cant check numbers bigger than 999 999 999 999 999"  
+    'o.InnerHTML="Sorry, cant check numbers bigger than 2147483647 " 
+  case 3:
+    o.InnerHTML="Primality applies to numbers bigger than 1 "   
+  case else
+    o.InnerHTML="Calculating..." & intinput
+	s= getallfactors(intinput)
+	if len(s)=0 then
+      o.InnerHTML= ""& intinput & " is a prime."
+    else      
+      o.InnerHTML=  intinput & " = " & s
+    end if  
+  end select
+  Inputnumber.Value=""
+End Sub
+
+Sub Foo(obj)             
+  MsgBox obj.id
+End Sub
+
+
+Sub Window_OnLoad
+  'window setup
+  window.resizeTo 340, 180
+  set o= document.getElementById( "OutputResult" ) 
+  'o.InnerHTML="Input number in the range 2 - 2147483647 and press ENTER to factorize it."
+  o.InnerHTML="Input number in the range 2 - 999999999999999 and press ENTER to factorize it."
+  'document.title = document.title & ",  Version " & MyFirstHTA.Version
+  InputNumber.Focus
+End Sub
+</script>
+</head>
+<body>
+
+<p><input type="number" id="InputNumber" onkeyup="EnterPressed"  />
+</p>
+
+<p id="OutputResult"></p>
+
+</body>
+</html>
