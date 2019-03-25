@@ -1,0 +1,172 @@
+<html>
+<head>
+<title>Fifteen Puzzle</title>
+<!--
+fifteen game
+a very old and silly puzzle just to test clicks on tables
+ 
+ -->
+
+<HTA:APPLICATION 
+     ID="objTest" 
+     APPLICATIONNAME="HTA Test"
+     SCROLL="yes"
+     SINGLEINSTANCE="yes"
+>
+
+<style type="text/css">
+div{height:90%;width:100%}
+table {height:100%;width:100%;}
+td{text-align:center;}
+.int{font-size=66;background-color:#e0e0e0;width:22% }
+.black{font-size=66;background-color:#000000;width:22% }
+.hor{background-color:#808080;color:#FFFFFF;height:6%}
+.ver{background-color:#808080;color:#FFFFFF;width:6%}
+</style>
+
+<SCRIPT LANGUAGE="VBScript">
+option explicit
+dim b,o
+'board and template with one row / column around as a sentinel
+dim g(6,6),g0(6,6)
+
+
+sub draw
+dim i,j,c,s,n 
+for i=1 to 4
+ for j=1 to 4
+   s=i& "_"& j
+   n=g(i,j) 
+   if n=16 then
+      document.getElementById(s).InnerHTML=""
+      document.getElementById(s).setattribute "className","black"
+   else 
+      document.getElementById(s).InnerHTML=g(i,j)
+      document.getElementById(s).setattribute "className","int"
+   end if      
+  next
+next
+end sub
+
+function moveplease(i,j)'returns 0 if move can't be done
+   dim t
+   moveplease=vbtrue
+   'border clicked
+   if g(i,j)=-1 then 
+      moveplease=vbfalse
+   '16= hole, can't move if hole is'nt in the contiguous case       
+   elseif g(i-1,j)=16 then 
+     g(i-1,j)=g(i,j):g(i,j)=16  
+   elseif g(i+1,j)=16 then   
+     g(i+1,j)=g(i,j):g(i,j)=16  
+   elseif g(i,j-1)=16 then
+     g(i,j-1)=g(i,j):g(i,j)=16  
+   elseif g(i,j+1)=16 then
+     g(i,j+1)=g(i,j):g(i,j)=16   
+   else
+     moveplease=vbfalse 
+   end if
+ end function
+
+ function doesitsolve()
+    dim i,j
+    doesitsolve=vbfalse
+    'lazy: just compare with the template...
+    for i=0 to 5
+      for j=0 to 5
+        if g(i,j)<>g0(i,j) then exit function
+      next
+    next
+    doesitsolve=vbtrue
+ end function    
+ 
+     
+sub move(obj)
+  dim t
+   t=obj.id
+   if not moveplease(left(t,1),right(t,1)) then exit sub
+   draw
+   if doesitsolve then msgbox "You solved the puzzle!",vbexclamation or vbokonly,"Fifteen Puzzle"
+end sub
+
+sub scramble
+   dim i,j,d,k
+   randomize
+   i=4:j=4
+   for k=1 to 100
+     d=(int(rnd*10)) mod 4
+     select case d
+     case 0:
+       if g(i-1,j)<>-1 then g(i,j)=g(i-1,j):i=i-1:g(i,j)=16
+     case 1:   
+       if g(i+1,j)<>-1 then g(i,j)=g(i+1,j):i=i+1:g(i,j)=16
+     case 2:
+       if g(i,j-1)<>-1 then g(i,j)=g(i,j-1):j=j-1:g(i,j)=16
+     case 3:
+       if g(i,j+1)<>-1 then g(i,j)=g(i,j+1):j=j+1:g(i,j)=16
+     end select
+   next  
+
+end sub
+
+sub newgame
+  dim i,j 
+   'reset board: just copy template into game array
+   for i=0 to 5:for j=0 to 5:g(i,j)=g0(i,j):next:next
+   scramble
+   draw  
+end sub
+
+
+sub maketable(r,c,siz,chess) 
+  dim i,j,s,p,s1,x
+  s1=""" onClick=""move Me"">"
+  s="<table id=""theboard""> "
+  for i=0 to r+1
+    s=s& "<tr>"
+    for j=0 to c+1
+      if i=0  or i=r+1  then 
+        p="hor" :x=chr(64+j)
+      elseif j=0 or j=c+1 then 
+        p="ver" :x= ""& i
+      else
+        p="int" : x="" 
+      end if
+      s=s&"<td class= """& p &""" id = """& i&"_"&j & s1 & x &"</td>"
+    next
+     s=s&"</tr>"&vbcrlf
+   next
+   s=s&"</table>"
+   'msgbox s
+   o.InnerHTML=s
+end sub
+
+sub window_onload()
+   window.resizeTo 600, 700
+   set o= document.getElementById( "mytable" )
+   maketable 4,4,600,0
+   dim i,j 
+   'make template array   
+   for i=0 to 5:
+     for j=0 to 5:
+       'value -1 as sentinel around
+       if j=0 or j=5 or i=0 or i=5 then 
+         g0(i,j)=-1  
+       else
+         g0(i,j)=(i-1)*4+j
+       end if         
+      next
+   next 
+   
+   newgame
+end sub
+
+</SCRIPT>
+</head>
+<body>
+
+<p align="center"><input type="button" value="New Game" id="NG"  onclick="newgame"><p>
+<div id = "myTable"  > </div>
+
+
+</body>
