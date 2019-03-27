@@ -1,0 +1,48 @@
+<html>
+<!-- a very simple ht calculator: no keys, uses eval()
+all operators and fungtions in vbs are available.  
+--> 
+
+<head>
+<title>VBS Simple Calculator</title>
+<HTA:APPLICATION >
+
+<SCRIPT LANGUAGE="VBScript">
+
+sub EnterPressed()
+	dim s,r
+	if window.event.Keycode<>13 then exit sub
+	s= document.getElementById( "entrada" ).value 
+	on error resume next
+	  r=s & " = " & eval(s)
+	  if err then r=err.description
+	on error goto 0
+	document.getElementById( "result" ).InnerHTML= r
+end sub
+
+sub myhelp
+ msgbox "Use parentheses as required. Prefix Hex values with &H" & vbcrlf & _
+        "32 bit operators NOT, OR, ANS, XOR, \, MOD"  & vbcrlf & _
+        "32 bit functions Hex, Oct" & vbcrlf & _
+        "double operators + - * / ^" & vbcrlf & _
+		"double functions sqr, sin, cos, tan, atan, exp, log" & vbcrlf & _
+		"abs, int, fix, round, sgn" & vbcrlf & _
+		"Days between dates (in your locale): #27/03/2019# - #15/5/1958#" _
+		 ,0,"Calculator help"
+ 
+end sub 
+
+
+sub window_onload()
+	window.resizeTo 640, 200
+	entrada.focus
+end sub
+
+</SCRIPT>
+</head>
+<body onhelp="myhelp">
+ <p>Enter expression and press ENTER to evaluate. F1 for help.</p>
+ <input  id="entrada" type="text" size="90" onkeyup="EnterPressed">
+ <p id="result"></p>
+</body>
+</html>
