@@ -1,1 +1,3 @@
-lista_recordset: uses odbc to read a csv, then uses a sub driven by an array to print it.
+lista_recordset: uses odbc to read a csv to a disconnected recordset, then uses a sub driven by an array to print it.
+mi_ClsIni      : reads an ini file to a dictionnary, that can be modified by program, then sorts it and writes it back to ini
+                  Warnidng: It loses the comment lines!
