@@ -1,3 +1,6 @@
-lista_recordset: uses odbc to read a csv to a disconnected recordset, then uses a sub driven by an array to print it.
+lista_recordset: uses odbc to read a csv to a disconnected recordset, then uses an array to tell a sub how to print it in columns.
 mi_ClsIni      : reads an ini file to a dictionnary, that can be modified by program, then sorts it and writes it back to ini
-                  Warnidng: It loses the comment lines!
+                  Warning: It loses the comment lines!
+my_userinput   : function that gets an array defining an input form with text /radio buttons/checkboxes, builds an html form
+                  opens it with InternetExplorer.Aplication, and on submit it reads the fiels to a returned dictionnary.
+                  Warning: Esthetic performance may vary.
