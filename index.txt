@@ -1,7 +1,8 @@
-crono.hta	: chronometer on screen using document.setinterval
-factoriza2.hta	: prints factors of entered number up to 10^16-1  or declares it a prime
-15game.hta	: the old puzzle by Sam Lloyd driven by mouse clicks on a html table
-simple_calc.hta	: calculator without keys using vbscript's eval. Allfunctions and operators in vbs available
 
-general_lib.vbs	: some functions i use often
-
+lista_recordset: uses odbc to read a csv to a disconnected recordset, then uses an array to tell a sub how to print it in columns.
+mi_ClsIni      : reads an ini file to a dictionnary, that can be modified by program, then sorts it and writes it back to ini
+                  Warning: It loses the comment lines!
+my_userinput   : function that gets an array defining an input form with text /radio buttons/checkboxes, builds an html form
+                  opens it with InternetExplorer.Aplication, and on submit it reads the fiels to a returned dictionnary.
+                  Warning: Esthetic performance may vary.
+general_lib    :  General use routines

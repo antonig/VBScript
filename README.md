@@ -1,4 +1,4 @@
 # vbs
-Just doing little apps to learn hta
+Some subs and functions i find useful.
 
 
