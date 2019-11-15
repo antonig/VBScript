@@ -1,7 +1,8 @@
 
 lista_recordset: uses odbc to read a csv to a disconnected recordset, then uses an array to tell a sub how to print it in columns.
 
-mi_ClsIni      : reads an ini file to a dictionnary, that can be modified by program, then sorts it and writes it back to ini
+mi_ClsIni      : An exercise in using classes. It reads an ini file to a dictionnary making items of the ini available to program.
+                  The progam can add, modify and delete items. At the end the class allows to save back the values to the ini
                   Warning: If the ini file is written back it loses the comment lines!
                   
 my_userinput   : function that gets an array defining an input form with text /radio buttons/checkboxes, builds an html form
