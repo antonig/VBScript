@@ -1,8 +1,21 @@
 
 lista_recordset: uses odbc to read a csv to a disconnected recordset, then uses an array to tell a sub how to print it in columns.
-mi_ClsIni      : reads an ini file to a dictionnary, that can be modified by program, then sorts it and writes it back to ini
-                  Warning: It loses the comment lines!
-my_userinput   : function that gets an array defining an input form with text /radio buttons/checkboxes, builds an html form
-                  opens it with InternetExplorer.Aplication, and on submit it reads the fiels to a returned dictionnary.
-                  Warning: Esthetic performance may vary.
-general_lib    :  General use routines
+
+mi_ClassIni      : 
+An exercise in using classes. It reads an ini file to a dictionnary making items of the ini available to program. The progam can add, modify and delete items. At the end the class allows to save back the values to the ini. Warning: If the ini file is written back it loses the comment lines!
+                  
+my_userinput   : 
+function that gets an array defining an input form with text /radio buttons/checkboxes, builds an html form and opens it with InternetExplorer.Aplication. On submit it reads the fields to a dictionnary. Warning: Esthetic performance may vary.  No validation is performed while form is open.
+                  
+console_menu   : 
+A "foolproof" console menu. The accepted inputs are defined as constants. The menu text and the switchboard use these   constants.         The input validation find the characters in the menu text yhet's built from the constants.
+                 
+general_lib    :  
+Assorted general use routines
+
+sunrise_final:
+Calculates sunrise and sunset time in civil time or any position under the polar cicles. Has an angle compensation for if the place is not at the same height as the visible horizon (mountins, top of a tower)
+Gives results +/- 1 min of the results provides by the US Naval Observatory site.
+ 
+
+
