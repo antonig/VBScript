@@ -1,0 +1,17 @@
+function DesktopPath()
+   DesktopPath= ows.ExpandEnvironmentStrings("%userprofile%")&"\Desktop"
+end function
+
+function ScriptPath()
+   ScriptPath= Left(WScript.ScriptFullName, InStrRev(WScript.ScriptFullName, "\"))
+end function
+
+function Currentpath():   CurrentPath=osh.CurrentDirectory :end function
+
+'repeat string
+repeatn (string, num): replace(space(num)," ",string) :end function
+
+'align right
+function alignr (s,width) :  alignr=right(space(width) & s,width) : end function
+   
+

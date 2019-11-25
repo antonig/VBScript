@@ -92,12 +92,18 @@ end function
 
 '----------------------------------------------------------------------
 
+'-----------------------------------------------
 sub blocdenotas( byref a, nom)
-'escribe texto a en logfile nom y abre bloc de notas para visualizarlo 
+'admite array de strings o string
+'escribe texto a en logfile nom y abre bloc de notas ara visualizarlo
+ dim s: if isarray(a) then s=join(a,vbcrlf)  else s=a
+ if nom="" then nom=fso.gettempname
  Dim LogFile:Set LogFile = fso.CreateTextFile(nom, true)
- logfile.write a
+ logfile.write s
  LogFile.Close
  ows.run "notepad "&nom,,0
+ erase a
+
 end sub
 
 
@@ -142,4 +148,18 @@ sub AseguraHost(mode,bits) ' mode "cmd" o "win"  bits "32" o ""(indiferente)
     WScript.Quit
   End If
 end sub
+
+'------------------------------------------------------
+sub isservicerunning (servicename)
+dim flag
+'Set wmi = GetObject("winmgmts://./root/cimv2")
+on error resume next
+flag = (GetObject("winmgmts://./root/cimv2").Get("Win32_Service.Name='" & serviceName & "'").Started)
+if err then terminaerror err, "isservicerunning"
+on error goto 0
+if flag=0 then terminaerror 101, "isservicerunning"
+end sub
+'------------------------------------
+
+'--------------------------------------------------------
 
