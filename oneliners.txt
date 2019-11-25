@@ -9,9 +9,13 @@ end function
 function Currentpath():   CurrentPath=osh.CurrentDirectory :end function
 
 'repeat string
-repeatn (string, num): replace(space(num)," ",string) :end function
+repeatn (string, num): repeatn=replace(space(num)," ",string) :end function
 
-'align right
-function alignr (s,width) :  alignr=right(space(width) & s,width) : end function
+'pad left
+function lpad (a,n) :lpad=right(space(n) & a,n) :end function
+
+'pad right
+function rpad  (a,n): rpad=left (a & space(n),n): end function
+
    
 
