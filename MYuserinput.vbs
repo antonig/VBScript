@@ -1,9 +1,11 @@
 'prueba de funcion que crea un formulario html y devuelve valores en diccionario
 'pdte:
 'ok  checkboxes
-'    alinear
+'ok  alinear
 '    detectar claves repetidas
 'ok  tamaño letra funcion de pantalla?
+'    listas
+'    
 'http://alistapart.com/article/prettyaccessibleforms/
 
 a=array(array("text","myname","nombre","pepe"),_
@@ -11,7 +13,7 @@ a=array(array("text","myname","nombre","pepe"),_
         array("radio","gender","male","&female","other"),_
 	array("check","asignatura","&mates","fisica","historia"))
 
-set d=getuserinput(a,"escribir valores", 320,400 )
+set d=getuserinput(a,"escribir valores", 320,300 )
 if not d is Nothing  then
   for each i in d.keys
     wscript.echo  i & " "& d(i) 
@@ -46,27 +48,27 @@ Function GetUserInput( myPrompt,title,w,h )
     ' Build HTML code of the form and dictionnary with keys from parsing the array passed as argument
     Dim d:Set d = CreateObject ("Scripting.Dictionary")
     
-    s = "<div style=""font-size:5vw"" id=""form"" align=""center"">"
+    s = "<table width=""100%"" cols=""2"" style=""font-size:5vw"" id=""form"" >"
     for each a in myprompt 
       select case a(0)
       case "text"
         d.Add a(1),""  
-        s=s & vbcrlf & "<label>" & a(2) &"<input style=""font-size:5vw"" type=""text"" name=""" & a(1) & """ value=""" & _
-           a(3) & """ /> </label> <br />" & vbcrlf	
+        s=s & vbcrlf & "<tr><td>" & a(2) &"</td><td align=""right""><input style=""font-size:5vw"" type=""text""   name=""" & a(1) & """ value=""" & _
+           a(3) & """ />  </tr>" & vbcrlf
       case "radio"
         d.Add a(1),"" 
-        s=s & vbcrlf &"<fieldset><legend>"&a(1)&"</legend>" & vbCrlf
+        s=s & vbcrlf &"<tr><td align=""center"" colspan=""2""><fieldset ><legend>"&a(1)&"</legend> " & vbCrlf
         for i=2 to ubound(a)
           if left(a(i),1)="&" then 
               chk="checked":j=mid(a(i),2) 
           else 
               j=a(i):chk=""
           end if 
-          s=s& vbcrlf & "<input type=""radio""  Name="""& a(1) & 	""" value=""" & j &""" " & chk &">" & j '    &" <br /> "
+          s=s& vbcrlf & "<input type=""radio""  Name="""& a(1) & """ value=""" & j &""" " & chk &"><label> " & j &"</label>"  '    &" <br /> "
         next
-        s=s & vbcrlf & "</fieldset>"
+        s=s & vbcrlf & "</div></fieldset></td></tr>"
       case "check"  
-        s=s & vbcrlf &"<fieldset><legend>"&a(1)&"</legend>" & vbCrlf    
+        s=s & vbcrlf &"<tr><td colspan=""2"" align=""center""><fieldset><legend>"&a(1)&"</legend>" & vbCrlf    
         for i=2 to ubound(a)
           if left(a(i),1)="&" then 
               chk="checked":j=mid(a(i),2) 
@@ -74,14 +76,14 @@ Function GetUserInput( myPrompt,title,w,h )
               j=a(i):chk=""
           end if 
           d.Add j,"" 
-          s=s& vbcrlf & "<input type=""checkbox""  Name="""& j & 	""" value=""" & j &""" " & chk &">" & j 
+          s=s& vbcrlf & "<input type=""checkbox""  Name="""& j &""" value=""" & j &""" " & chk &">" & j 
         next
-        s=s & vbcrlf & "</fieldset>" 
+        s=s & vbcrlf & "</td></tr>" 
       end select
     next        
-    s=s & vbcrlf & "<p><input type=""hidden"" id=""OK"" name=""OK"" value=""0"">" _
+    s=s & vbcrlf & "<tr><td align=""center"" colspan=""2""><input type=""hidden"" id=""OK"" name=""OK"" value=""0"">" _
          & "<input type=""submit"" value="" OK "" OnClick=""VBScript:OK.value=1"">" _
-         & "</p></div>"
+         & "</tr></td></table>"
   
     wscript.echo s
     'make it visible

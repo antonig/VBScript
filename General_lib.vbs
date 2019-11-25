@@ -1,3 +1,4 @@
+public ows       : Set oWs = CreateObject("WScript.Shell")
 public fso       : Set fso = CreateObject("Scripting.FileSystemObject")
 '--------------------------------------------------------------
 'to have this lib included include this sub in your main file and call it from the first lines with the name of this file
