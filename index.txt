@@ -17,5 +17,6 @@ sunrise_final:
 Calculates sunrise and sunset time in civil time or any position under the polar cicles. Has an angle compensation for if the place is not at the same height as the visible horizon (mountins, top of a tower)
 Gives results +/- 1 min of the results provides by the US Naval Observatory site.
  
-
+srt_time_offset:
+Adds an offset to all times in a SRT video subtitle file.
 
