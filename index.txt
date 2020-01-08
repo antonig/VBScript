@@ -18,5 +18,5 @@ Calculates sunrise and sunset time in civil time or any position under the polar
 Gives results +/- 1 min of the results provides by the US Naval Observatory site.
  
 srt_time_offset:
-Adds an offset to all times in a SRT video subtitle file.
+Adds/substracts an offset to all times in a SRT video subtitle file.
 
