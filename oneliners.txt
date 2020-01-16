@@ -17,5 +17,16 @@ function lpad (a,n) :lpad=right(space(n) & a,n) :end function
 'pad right
 function rpad  (a,n): rpad=left (a & space(n),n): end function
 
+'IsTime (isdate and the timedateserial has no integer part)
+Function IsTime(Expression) 
+    If IsDate(Expression) Then 
+      IsTime = (Int(CSng(CDate(Expression))) = 0)
+    elseif isnumeric(expression) then
+       Istime =(int(expression)=0)
+    else   
+       istime=false
+    end if
+End Function
+
    
 
