@@ -30,3 +30,6 @@ Adds/substracts an offset to all times in a SRT video subtitle file.
 clean_thml:
 Removes nontext tags of an html file. UTF-8
 
+prio:
+Handy priority queue class.
+
