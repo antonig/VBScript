@@ -7,19 +7,25 @@ public fso       : Set fso = CreateObject("Scripting.FileSystemObject")
 'End Sub
 '---------------------------------------------------------
 function selecfile
- 'uses hta to run a windows file selector dialog
- if Wscript.Arguments.count=1 then
-    Selecfile=Wscript.arguments(0)
- else	
- dim oexec
- Set oExec=ows.Exec("mshta.exe ""about:<input type=file id=FILE><script>FILE.click();"&_
+'si archivo pasado al script como primer argumento exise, devuelve su nombre
+'si no existe o no se han pasado parameros abre selector de archivos de windows 
+'y devuelve la selección del usuario
+ if (Wscript.Arguments.count=1) then  
+   dim f:f=Wscript.Arguments(0)
+   if instr(f,"\")=0 then f=scriptpath & f     
+   if fso.FileExists(f) Then
+    Selecfile=f
+    exit function
+  end if
+end if	
+with  CreateObject("Wscript.shell").Exec("mshta.exe ""about:<input type=file id=FILE><script>FILE.click();"&_
    "new ActiveXObject('Scripting.FileSystemObject').GetStandardStream(1).WriteLine(FILE.value);"&_
    "close();resizeTo(0,0);</script>""")
- Selecfile = oExec.StdOut.ReadLine
- end if
+    Selecfile = .StdOut.ReadLine
+ end with   
 end function
 '-----------------------------------------------------------------
-function gettable32(path,query)
+function getxltable32(path,query)
 'devuelve recordset desconectado de tabla excel o csv
 'si path incluye nombre archivo xls query debe tener nombre_hoja como nombre tabla
 'si path no incluye nombre archivo query debe tener nombre_archivo.csv como nombre tabla
@@ -50,17 +56,19 @@ end if
   on error goto 0
    wscript.echo "consulta efectuada. registros: "  & oRsCsv.RecordCount
    oRsCsv.Activeconnection=nothing  
-   set gettable32=orscsv
+   set getxltable32=orscsv
    set oConnCsv=Nothing
    set oRsCsv=Nothing
  end function
  '-------------------------------------------------
- function view_rs(r, a ) 
- 'devuelve recordset  en string
+function view_rs(r, a ) 
+'devuelve recordset  en string
+'r es un recordset obtenido de consulta
+'a array que alterna numeros o nombres de columna (base 0) y espacios(negativo alinea derecha)
+
 dim s,i,t,l,c
 redim l(r.recordcount+1)
-'r es un recordset obtenido de consulta
-'a array que alterna numeros de columna (base 0) y espacios(negativo alinea derecha)
+
 	with r.Fields
     s=""
     for i=0 to ubound(a) step 2
@@ -175,7 +183,10 @@ function nomdir(bits) 'devuelve carpeta Sistema para Win32 o Win64
      if bits=32 and eswin64 then nomdir="\SYSWOW64\" else nomdir="\SYSTEM32\"
 end function
 
-sub AseguraHost(mode,bits) ' mode "cmd" o "win"  bits "32" o ""(indiferente)
+sub AseguraHost(mode,bits) 
+' mode "cmd" o "win"  
+' bits "32" o ""(indiferente)
+
   Dim oProcEnv : Set oProcEnv = oWs.Environment("Process") 
   If (EsWin64 and not esbits(bits)) or not eshost(mode) Then
     Dim sArg, Arg
@@ -193,6 +204,7 @@ end sub
 
 '------------------------------------------------------
 sub isservicerunning (servicename)
+'devuelve true si el servicio servicename se está ejecutando
 dim flag
 'Set wmi = GetObject("winmgmts://./root/cimv2")
 on error resume next
