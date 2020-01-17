@@ -11,7 +11,14 @@ console_menu   :
 A "foolproof" console menu. The accepted inputs are defined as constants. The menu text and the switchboard use these   constants.         The input validation find the characters in the menu text yhet's built from the constants.
                  
 general_lib    :  
-Assorted general use routines
+Assorted general use routines. 
+  Loads text file ascii or utf-8. Splits it to array if required. 
+  Get string or array (joins it to string) and saves to file ascii or utf-8 and open it in notepad
+  Select file. reads name from first argument. If not exists open windows file selector
+  Ensure running in cscript/wscript or 32/64 bits version of vbscript. Restarts script if required.
+  Read a recordset from  csv or from xls excel file 
+  Display selected columns of given width from recordset. Right-left align each column at will
+  Check if service is running
 
 sunrise_final:
 Calculates sunrise and sunset time in civil time or any position under the polar cicles. Has an angle compensation for if the place is not at the same height as the visible horizon (mountins, top of a tower)
@@ -19,4 +26,7 @@ Gives results +/- 1 min of the results provides by the US Naval Observatory site
  
 srt_time_offset:
 Adds/substracts an offset to all times in a SRT video subtitle file.
+
+clean_thml:
+Removes nontext tags of an html file. UTF-8
 
