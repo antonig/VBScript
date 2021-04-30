@@ -6,23 +6,19 @@ public fso       : Set fso = CreateObject("Scripting.FileSystemObject")
 '    executeGlobal CreateObject("Scripting.FileSystemObject").openTextFile(fSpec).readAll()
 'End Sub
 '---------------------------------------------------------
+'Abre selector de archivos de windows, usa mshta 
 function selecfile
-'si archivo pasado al script como primer argumento exise, devuelve su nombre
-'si no existe o no se han pasado parameros abre selector de archivos de windows 
-'y devuelve la selección del usuario
- if (Wscript.Arguments.count=1) then  
-   dim f:f=Wscript.Arguments(0)
-   if instr(f,"\")=0 then f=scriptpath & f     
-   if fso.FileExists(f) Then
-    Selecfile=f
-    exit function
-  end if
-end if	
-with  CreateObject("Wscript.shell").Exec("mshta.exe ""about:<input type=file id=FILE><script>FILE.click();"&_
+ if Wscript.Arguments.count=1 then
+  if myfso.Fileexists(wscript.arguments(0)) then
+    Selecfile=Wscript.arguments(0):exit function
+ end if
+ end if
+ dim oexec
+ Set oExec=ows.Exec("mshta.exe ""about:<input type=file id=FILE><script>FILE.click();"&_
    "new ActiveXObject('Scripting.FileSystemObject').GetStandardStream(1).WriteLine(FILE.value);"&_
    "close();resizeTo(0,0);</script>""")
-    Selecfile = .StdOut.ReadLine
- end with   
+ Selecfile = oExec.StdOut.ReadLine
+
 end function
 '-----------------------------------------------------------------
 function getxltable32(path,query)
@@ -62,33 +58,49 @@ end if
  end function
  '-------------------------------------------------
 function view_rs(r, a ) 
-'devuelve recordset  en string
-'r es un recordset obtenido de consulta
-'a array que alterna numeros o nombres de columna (base 0) y espacios(negativo alinea derecha)
-
-dim s,i,t,l,c
+dim s,i,t,l,c,t1
 redim l(r.recordcount+1)
-
-	with r.Fields
+'r es un recordset obtenido de consulta
+'a array que alterna numeros de columna (base 0) y espacios(negativo alinea derecha)
+'si alineacion derecha tiene decimal, se usa Formatnumber con tantos decimales como indican las decimas
+   with r.Fields
     s=""
     for i=0 to ubound(a) step 2
-      t=a(i+1) 
+      t=a(i+1)
+      on error resume next 
       if t<0 then  
-        S= s& right(space(-t)&.Item(a(i)).name & " ",-t )
+        S= s & right(space(-t) & .Item(a(i)).name & " ", -t )
+        if err then terminar "campo """& a(i) & """ solicitado no existe"
       else
-        S= s& left(.Item(a(i)).Name & space(t),t)
+        S= s & left( .Item(a(i)).name & space(t) , t-1)&" "
+        if err then terminar "campo """& a(i) & """ solicitado no existe"
       end if        
+      on error goto 0
     next
     l(0)= s
+    'wscript.echo s
     c=1
+    r.MoveFirst 
     Do Until r.EOF
       s="" 
       for i=0 to ubound(a) step 2
         t=a(i+1)
-        if t<0 then  
-          S= s& right(space(-t)&.Item(a(i))&" ",-t)
+ 
+        
+        if t<0 then 
+          if t<>fix(t) then
+            t1=10* abs(t-fix(t)):t=fix(t) 
+            if isempty (.Item(a(i))) then
+               s=s & space(-t)
+            else
+                S= s & right(space(-t) & formatnumber(.Item(a(i)),t1,0,0,0) & " ",-t)
+            end if
+            
+          else   
+            S= s & right(space(-t) & .Item(a(i)) & " ",-t)
+          end if  
         else
-          S= s& left(.Item(a(i))& space(t),t)
+          S= s & left( r.Fields(a(i)) & space(t) ,t-1)&" "
         end if  
       next  
       l(c)=s
@@ -97,7 +109,6 @@ redim l(r.recordcount+1)
     end with
     view_rs=join(l,vbcrlf)
 end function
-
 '----------------------------------------------------------------------
 function scriptpath()
   'get the path of this script 
