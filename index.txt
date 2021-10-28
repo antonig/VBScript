@@ -33,3 +33,6 @@ Removes nontext tags of an html file. UTF-8
 prio:
 Handy priority queue class.
 
+Getfloat:
+Reads a floating point IEE764 number from a file buffer
+
