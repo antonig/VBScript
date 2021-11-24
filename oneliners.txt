@@ -1,3 +1,9 @@
+'inicializaciones
+dim g_ows       : Set g_ows = CreateObject("WScript.Shell")
+dim g_fso       : set g_fso  = CreateObject("Scripting.FileSystemObject")
+Dim oProcEnv    : Set oProcEnv = g_ows.Environment("Process")
+dim g_wrconn : Set g_wrconn = CreateObject("ADODB.Connection")
+
 function DesktopPath()
    DesktopPath= ows.ExpandEnvironmentStrings("%userprofile%")&"\Desktop"
 end function
@@ -6,27 +12,60 @@ function ScriptPath()
    ScriptPath= Left(WScript.ScriptFullName, InStrRev(WScript.ScriptFullName, "\"))
 end function
 
-function Currentpath():   CurrentPath=osh.CurrentDirectory :end function
+function Currentpath():   CurrentPath=ows.CurrentDirectory :end function
 
 'repeat string
 repeatn (string, num): repeatn=replace(space(num)," ",string) :end function
 
-'pad left
-function lpad (a,n) :lpad=right(space(n) & a,n) :end function
 
-'pad right
-function rpad  (a,n): rpad=left (a & space(n),n): end function
+'pad izquierda o derecha (negativo derecha)
+function rpad  (a,n) if n<0 then pad=left (a & space(n),n) else pad=right(space(-n) & a,-n) end if: end function
 
-'IsTime (isdate and the timedateserial has no integer part)
-Function IsTime(Expression) 
-    If IsDate(Expression) Then 
-      IsTime = (Int(CSng(CDate(Expression))) = 0)
-    elseif isnumeric(expression) then
-       Istime =(int(expression)=0)
-    else   
-       istime=false
-    end if
-End Function
+' ¨°º©o¿,,¿o©º°¨¨°º©o¿,,¿o©º°¨¨°º©o¿,,¿o©º°¨¨°º©o¿,,¿o©º°¨
 
+
+'pulsa tecla (solo si en consola)
+if g_consola then wscript.stdout.write vbcrlf & "Pulsa ENTER para salir ":wscript.stdin.readline
+
+'es vbs consola?
+dim g_consola:g_consola= (instr(ucase(WScript.FullName),"CSCRIPT")<>0) 
+
+'es win64?
+EsWin64=(g_fso.folderexists(oprocEnv("Windir") & "\Syswow64"))
+
+'long de bin
+getlong= asc(mid(input,i,1)) +&h100& *(asc(mid(input,i+1,1))+ &h100 * (asc(mid(input,i+2,1))+&h100& *  asc(mid(input,i+3,1)))) 
+
+'mac de bin
+  dim i,s:for i=1 to 6 :mac=mac & s & right("00"& hex(asc(mid(input,pos+i,1))),2):s="-": next 
+  
+'selector de archivos
+   Set oExec=g_ows.Exec("mshta.exe ""about:<input type=file id=FILE><script>FILE.click();"&_
+   "new ActiveXObject('Scripting.FileSystemObject').GetStandardStream(1).WriteLine(FILE.value);"&_
+   "close();resizeTo(0,0);</script>"""):   Selecfile = oExec.StdOut.ReadLine 
+
+'random entre lowerbound y upperbound
+Int( ( upperbound - lowerbound + 1 ) * Rnd + lowerbound )
+
+'guardar valor unsigned int  en int
+B= cint((a And &H7FFF&) Or (((A and >&h8000)<>0) And &H8000))   'no usa long
+
+'unsigned long a long
+B= clng((a And &H7FFFFFFF&) Or (((A and >&h80000000)<>0) And &H80000000))   
+
+'shift derecha sin signo
+ k = ((k And &H7FFFFFFF) \ 2^n) Or (2^(31-n) And ((k And &H80000000) <> 0)) 
+
+'IIF  :ojo, si se pasan expresiones en los argumentos, se evaluan todas en la llamada
+Function IIf( expr, tru, fal): If expr Then IIf = tru else IIF=fal:End Function
+
+'check extension (ex1 es lista de extensiones separada por espacios)
+if instr(ex1,LCase(oFSO.GetExtensionName(oFile.Name))) then
+
+'Regexp Test
+function testRE (txt,pat) with New Regexp: .pattern=pat : testre=.test(txt): end with: end function
    
+'para incluir clases y librerias en scripts.  
+ executeGlobal CreateObject("Scripting.FileSystemObject").openTextFile("mylib.vbs").readAll()
+
 
