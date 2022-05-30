@@ -4,7 +4,7 @@
 'Uses ANSI escape codes. Will not work below Windows 10
 
 option explicit
-const pix="##"
+const pix="[]"
 const cl_on=16
 const cl_mnum=15
 randomize timer
