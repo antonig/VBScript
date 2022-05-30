@@ -24,8 +24,10 @@ init2 400  'random
 
 do
   n=nextgen
-  toxy tlcr-1,tlcc+maxdim*2+4,gen & " " & n
-  toxy tlcr,tlcc+maxdim*2+3,""
+  toxy tlcr-1,tlcc+maxdim*2+4,"Gener. Changes"
+  toxy tlcr,tlcc+maxdim*2+4,pad(gen,-4) & "    " &pad(n,-3)
+   
+  toxy tlcr+1,tlcc+maxdim*2+3,""
   gen=gen+1
 loop until n=0
 
@@ -34,6 +36,10 @@ sub settitle(s)  wscript.StdOut.Write chr(27)&"]0;"& s &chr(7):end sub
 sub cls()  wscript.StdOut.Write ans0 &"2J"&ans0 &"?25l":end sub
 sub toxy(r,c,s)  wscript.StdOut.Write ans0 & r & ";" & c & "f"  & s :end sub
 function iif(a,b,c) if a then iif=b else iif=c end if :end function
+function pad(s,n) 
+ if n<0 then pad= right(space(-n) & s ,-n) else  pad= left(s& space(n),n) 
+end function
+
 
 sub init1 
 dim x
