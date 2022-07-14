@@ -1,15 +1,15 @@
 
-lista_recordset: uses odbc to read a csv to a disconnected recordset, then uses an array to tell a sub how to print it in columns.
+bintofloat: gets  4bytes from a binary stream saves into a string and reads them as an IEEE764 floating point number
 
-mi_ClassIni      : 
-An exercise in using classes. It reads an ini file to a dictionnary making items of the ini available to program. The progam can add, modify and delete items. At the end the class allows to save back the values to the ini. Warning: If the ini file is written back it loses the comment lines!
-                  
-my_userinput   : 
-function that gets an array defining an input form with text /radio buttons/checkboxes, builds an html form and opens it with InternetExplorer.Aplication. On submit it reads the fields to a dictionnary. Warning: Esthetic performance may vary.  No validation is performed while form is open.
-                  
+clean_thml:
+Removes nontext tags of an html file. UTF-8
+
 console_menu   : 
 A "foolproof" console menu. The accepted inputs are defined as constants. The menu text and the switchboard use these   constants.         The input validation find the characters in the menu text yhet's built from the constants.
-                 
+
+
+conways_life: Uses ANSI escape codes to display a Conway Game of Life
+
 general_lib    :  
 Assorted general use routines. 
   Loads text file ascii or utf-8. Splits it to array if required. 
@@ -20,19 +20,34 @@ Assorted general use routines.
   Display selected columns of given width from recordset. Right-left align each column at will
   Check if service is running
 
-sunrise_final:
-Calculates sunrise and sunset time in civil time or any position under the polar cicles. Has an angle compensation for if the place is not at the same height as the visible horizon (mountins, top of a tower)
-Gives results +/- 1 min of the results provides by the US Naval Observatory site.
- 
-srt_time_offset:
-Adds/substracts an offset to all times in a SRT video subtitle file.
 
-clean_thml:
-Removes nontext tags of an html file. UTF-8
+lista_recordset: uses odbc to read a csv to a disconnected recordset, then uses an array to tell a sub how to print it in columns.
+
+mi_ClassIni      : 
+An exercise in using classes. It reads an ini file to a dictionnary making items of the ini available to program. The progam can add, modify and delete items. At the end the class allows to save back the values to the ini. Warning: If the ini file is written back it loses the comment lines!
+                  
+my_userinput   : 
+function that gets an array defining an input form with text /radio buttons/checkboxes, builds an html form and opens it with InternetExplorer.Aplication. On submit it reads the fields to a dictionnary. Warning: Esthetic performance may vary.  No validation is performed while form is open.
+                  
+oneliners.txt Some snippets i find useful               
 
 prio:
 Handy priority queue class.
 
-Getfloat:
-Reads a floating point IEE764 number from a file buffer
+srt_time_offset:
+Adds/substracts an offset to all times in a SRT video subtitle file.
+
+sunrise_final:
+Calculates sunrise and sunset time in civil time or any position under the polar cicles. Has an angle compensation for if the place is not at the same height as the visible horizon (mountins, top of a tower)
+Gives results +/- 1 min of the results provides by the US Naval Observatory site.
+
+turtle graphics:
+Implements simple turlte graphics. The output is SVG code written to an HTML file. At the end the program opens the file in the default browswr. A sierpinski triangle is provided as a sample. 
+
+
+
+
+
+
+
 
