@@ -17,7 +17,7 @@ wscript.echo mm
 'get key and validate it. (Enter is a hidden valid option)
 do
   wscript.stdout.write "Select an option and [Enter]"
-  s=  wscript.stdin.readline .
+  s=  wscript.stdin.readline 
   s= ucase(s)     'remove if case sensitive
 loop until instr(mm,s & ".-")>0   'validate "[key].-" appears in the menu text
 

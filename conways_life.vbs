@@ -30,8 +30,9 @@ do
   toxy tlcr+1,tlcc+maxdim*2+3,""
   gen=gen+1
 loop until n=0
+pause
 
-sub pause() wscript.stdout.write vbcrlf & "Press Enter":wscript.stdin.readline: end sub
+sub pause() wscript.stdout.write  "Life ended. Press Enter":wscript.stdin.readline: end sub
 sub settitle(s)  wscript.StdOut.Write chr(27)&"]0;"& s &chr(7):end sub
 sub cls()  wscript.StdOut.Write ans0 &"2J"&ans0 &"?25l":end sub
 sub toxy(r,c,s)  wscript.StdOut.Write ans0 & r & ";" & c & "f"  & s :end sub
