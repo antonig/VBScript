@@ -52,6 +52,7 @@ class turtle
    end sub
    
    Private Sub Class_Initialize()   
+      setlocal "us" 'reauired so the decimal points in the SVG are correct
       initsvg
       x=400:y=400:incr=100
       ori=90*pi180
