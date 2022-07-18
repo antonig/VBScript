@@ -31,3 +31,5 @@ And no mouse or keyboard input is returned to VBS...
 ## conways_life.vbs 
 is a sample of an app using ANSI graphics dynamically.
 
+####
+
