@@ -9,10 +9,10 @@ WYSIWIG is not possible in VBS, as far i know...
 The samples cover two different approaches:
 
 ### rastergraphic.vbs 
- has a class that draws to a BMP (24 or 8 bit) file.
+ has a class that draws to a BMP (32 or 8 bit) file.
  The program supplies a palette for 8 bits but a custom one can be provided. 
  Only 4 primitives: pixel, line, circle and filled box at the moment
- The demo displays the palette, and draws on top of it a couple of lines and a circle
+ The demo does two drawings, a colorwheel in 32 bits and displays the palette and a couple of primitives in 8 bits
 
 ### turtle_graphics.vbs: 
  has a class that issues SVG vectorial graphic commands to an HTML file.
@@ -27,7 +27,8 @@ And no mouse or keyboard input is returned to VBS...
 
 ## Use ANSI escape codes in console
  This allows to locate text, to get colors or box drawing characters. 
- Unfortunately windows from 2000 to 8.1 don't recognise ANSI codes, that show as garbage on the console. Win 10 or 11 is required (or the old Win98)
+ Unfortunately windows from 2000 to 8.1 don't recognise ANSI codes, showing as garbage on the console. 
+ Win 10 or 11 is required (or the old Win98)
 
 ### conways_life.vbs 
 is a sample of an app using ANSI graphics dynamically.
