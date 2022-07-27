@@ -16,7 +16,8 @@ The samples cover two different approaches:
 
 ### turtle_graphics.vbs: 
  has a class that issues SVG vectorial graphic commands to an HTML file.
- It has a turtle graphics interface. The demo draws a Sierpinski triangle
+ It has a turtle graphics interface. Added an L-System interpreter, the L-system is defined in a dictionary. 
+ The demo draws a Sierpinski triangle
 
 ## Use the free vbs_gfx helper program 
 It opens a 640x480 window and allows to set pixels  in real time.
