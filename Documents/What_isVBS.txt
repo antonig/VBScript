@@ -1,0 +1,65 @@
+VBScript (Visual Basic Script) is an interpreted scripting language derived from Visual Basic developed by Microsoft in 1996 and shipped first in Windows NT and Windows 98. It can adopt diferent flavours
+
+ As desktop script language under Windows Sctipting Host
+ As as server side script language  in IIS'  Active Servar Pages
+ As an alternate client side script language in html files intended to be viewed in Internet Explorer (deprecated!)
+ As the main script language embedded in third party applications as 
+  HP QuickTest Professional (QTP), now Unified Functional Terting (UFT) software tester 
+  Indusoft Web Studio and WinCC SCADAs 
+  Altium Designer PCB designer tool
+  Enterprise Architect UML visual modeling tool
+  Rhinoceros visual modeling tool
+  VanDyke Secure CRT secure telnet and terminal emulator
+  M-Files irnteligent information manager
+  The GUI for the SAP entreprise resource planning software
+ 
+ As a desktop aplication running in Windows Scripting Host:
+
+ 
+ Features: 
+A script can run without installing additional software in Windows from W96 and Windows NT to Windows 11.Some features may not be there in Windows XP or below
+ Weakly typed. All variables are of type variant. A variant can be numeric, string, an array of variants or a pointer to an object.
+ arrays can be created by enumerating its components (Array keyword)  
+ math functions and arithmetics are made in double precission. Numbers are converted to SIGNED 32 bit integers for bitwise logic,integer division\ and modulus.
+ Has true dynamic strings that can be up to 2E9 bytes long. To manipulate long strings a join keyword not slowed by garbage  collection allows to convert an array of strings into a single string joined by separators
+ Can create classes (no inheritance or polymorphism) to encapsulate functions.
+ built in access to SQL queries to any database having an ODBC driver installed. 
+ Can search WMI, Windows Search,ASDI 
+ built in regular expressions (not so complete as perl's, but better than original Unix's)
+ built in object dictionary (an associative array)
+ Two different runtimes Wscript and Cscript. The main difference:
+    Wscript does'nt open a console, 
+		Wscript do not have access to the standard streams stdin,stdout and stderr, 
+		can't be stopped with Ctrl-C.
+ Access to ADODB.streams allowing to read and save text in different  codepages, convert between them 
+ If .NET is present it can access some handy containers from .NET as ArrayList, Stack or Queue
+ Can acces the object model of applications having VBA as their scripting interface, allowing to control them from outside
+ Good date-time functions
+ Support to Locale change (decimal separator, first day of week..)
+ supports named command line arguments
+ 
+ Cons:
+ The acces to files is only sequential (text or binary), with no random access. 
+ No preprocessor support, no include, conditional compiling
+ No json support. 
+ Arrays are static, REDIM PRESERVE must be used to change its size, no push-pop
+ No wilcards accepted in the filenames passed to folder/file handling functions
+ It has not been given new features since Windows XP 
+ Spotty Unicode support
+ Strings don't allow indexing to write on them, to modify a string placeholders+ Replace, or regex must be used. Or the string has to be built item by item.
+ Clumsy string indexing for reading asc(mid(s,i,1)) at the place of s[i]
+ No way to build a windows form, the official way is to write some html to a file and call Internet Explorer to display it and get user selections from it.
+ Windows did'nt support ANSI escape codes from XP to W8.1 so a console app using them will display garbage on these OS versions.
+ It can't get single characters from the keyboard, any user input must be terminated by <enter>. No shooting games!
+ It can't get mouse input, except to click buttons in the the two built-in forms MessageBox and  (text)InputBox
+ No access to a graphics screen, a file must be created and viewed in an external viewer ( BMP or HTML including SVG), or  ASCII (ANSI) art must be used. 
+ no named or optional arguments in functions
+ No register or user defined variables. Arrays of variants may substitute them. There is no way of having a packed register for file i/O unless its built byte to byte as a string.
+ No continue or goto. It has exit do/for/sub/function
+ No shift left - shift right 
+ Sketchy error handling: only On Error Resume Next
+ No formatted output equivalent to printf. Poor format functions, no align right
+ Can't redimension or change console size or charset.
+ The requirement to type set fso=CreateObject("Scripting.FileSystemObject") should be against human laws.
+
+ 
