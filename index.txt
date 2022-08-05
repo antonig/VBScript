@@ -1,5 +1,5 @@
 
-bintofloat: gets  4bytes from a binary stream saves into a string and reads them as an IEEE764 floating point number
+bintofloat: gets  4bytes from a binary stream in a string and reads them as an IEEE764 floating point number
 
 clean_thml:
 Removes nontext tags of an html file. UTF-8
@@ -7,8 +7,6 @@ Removes nontext tags of an html file. UTF-8
 console_menu   : 
 A "foolproof" console menu. The accepted inputs are defined as constants. The menu text and the switchboard use these   constants.         The input validation find the characters in the menu text yhet's built from the constants.
 
-
-conways_life: Uses ANSI escape codes to display a Conway Game of Life
 
 general_lib    :  
 Assorted general use routines. 
@@ -41,8 +39,8 @@ sunrise_final:
 Calculates sunrise and sunset time in civil time or any position under the polar cicles. Has an angle compensation for if the place is not at the same height as the visible horizon (mountins, top of a tower)
 Gives results +/- 1 min of the results provides by the US Naval Observatory site.
 
-turtle graphics:
-Implements simple turlte graphics. The output is SVG code written to an HTML file. At the end the program opens the file in the default browswr. A sierpinski triangle is provided as a sample. 
+printf sprintf:
+A try to get straighfortward string formatting functions copying c#'s string interpolation
 
 
 
