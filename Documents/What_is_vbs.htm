@@ -13,13 +13,13 @@
 <ul>
     <li>As desktop script language under Windows Sctipting Host</li>
     <li>As as server side script language  in IIS'  Active Server Pages</li>
-    <li>As an alternate client side script language in html files intended to be viewed in Internet Explorer (deprecated!)</li>
+    <li>As an alternate client side script language in html files intended to be viewed in Internet Explorer (deprecated!). Use ECMAScript!</li>
 		<li>As one of the script languages available in the HTML Applications (HTA). Standalone apps based in web interface running in mshta.exe.</li>
     <li>As the main script language embedded in third party applications as </li>
 <ul>
     <li> HP QuickTest Professional (QTP), now Unified Functional Terting (UFT) software tester </li>
     <li> Indusoft Web Studio SCADAs </li>
-    <li>	Siemens' WinCC SCADA</li>
+    <li> Siemens' WinCC User Inteface development tool</li>
     <li> Altium Designer PCB designer tool</li>
     <li> Enterprise Architect UML visual modeling tool</li>
     <li> Rhinoceros visual modeling tool</li>
@@ -27,6 +27,7 @@
     <li> M-Files inteligent information manager</li>
     <li> The GUI for the SAP entreprise resource planning software</li>
 		<li> Microsoft Outlook 97</li>
+    <li> ARCMap and ARCGis, map designing and geographical database software</li>
 </ul>
 </ul>
 
@@ -40,20 +41,25 @@
     <li>Weakly typed variables. All variables are of type variant. A variant can be numeric, string, an array of variants or a pointer to an object.</li>
     <li>arrays can be created by enumerating its components (Array keyword)  </li>
     <li>Math functions and arithmetics are made in double precission 17 decimal positions of precision. </li>
-    <li>Has true dynamic strings that can be up to 2E9 bytes long. To halp with long strings a join keyword not slowed by garbage collection allows to convert an array of strings into a single string joined by separators</li>
+    <li>Has true dynamic strings that can be up to 2E9 bytes long. To help with long strings a join keyword allows to convert an array of strings into a single string joined by separators in a way not slowed by garbage collection </li>
     <li>Can create classes (no inheritance or polymorphism) to encapsulate functions.Classes can be made into Windows Script Components, ActiveX-enabled script class that can be invoked by other COM-enabled applications</li>
-    <li>Has built in access to SQL queries to any database having an ODBC driver installed. </li>
-    <li>Built in SQL can search WMI, Windows Search,ASDI </li>
     <li>Has built in regular expressions (not so complete as perl's, but better than original Unix's)</li>
     <li>Has a built in object dictionary (an associative array)</li>
+    <li>Can interact with software as  ActiveX controls, and COM automation servers and components.</li>
+    <ul>
+    <li>Has built in access to SQL queries to any database having an ODBC driver installed. </li>
+    <li>Built in SQL can search WMI, Windows Search,ASDI </li>
+    <li>Access to Microsoft XML parser</li>
     <li>Access to ADODB.streams allowing to read and save text in different  codepages, convert between them </li>
     <li>If .NET is present it can access some handy containers as ArrayList, Stack or Queue </li>
     <li>Can acces the object model of applications having VBA as their scripting interface, allowing to control them from outside</li>
-    <li>Good date-time functions</li>
+    </ul>
+    <li>Good date-time functions. But no UTC support</li>
     <li>Support to Locale change (decimal separator, first day of week..)</li>
     <li>supports named command line arguments</li>
 		<li>Error reporting including the line number.</li>
-		<li>Can run other apps, sending intput to their sdin capturing their stdout live and getting their exit code at the end</li> 
+    <li>while,for each
+		<li>Can run other apps non-COM, sending intput to their sdin capturing their stdout live and getting their exit code at the end</li> 
 </ul>
 
 <p> </p>
@@ -91,7 +97,8 @@
     <li>Can't redimension or change console size or change charset.</li>
     <li>The requirement to type <i>set fso=CreateObject("Scripting.FileSystemObject")</i> before using any file handling method should be punished by law.</li>
 		<li>Array base can't be changed fom 0</li>
-		
+    <li>No short circuit of logical operations. no iif</li>
+		<li>Nothing, Null, Empty (uninitialized)</li>
 </ul>
 
 
