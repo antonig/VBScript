@@ -14,6 +14,11 @@ The samples cover two different approaches:
  Only 4 primitives: pixel, line, circle and filled box at the moment
  The demo does two drawings, a colorwheel in 32 bits and displays the palette and a couple of primitives in 8 bits
 
+### colorwheelwchar.vbs 
+ Same class as in rastergraphic only creating BMP a little faster by writing 2 bytes at a time by puzzling VBS into writing a UTF16 and using CHRW to do conversions.
+ The demo draws a colorwheel by working in the HSV colorspace.
+
+
 ### turtle_graphics.vbs: 
  has a class that issues SVG vectorial graphic commands to an HTML file.
  It has a turtle graphics interface. Added an L-System interpreter, the L-system is defined in a dictionary. 
