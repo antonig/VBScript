@@ -45,7 +45,7 @@
     <li>Can create classes (no inheritance or polymorphism) to encapsulate functions.Classes can be made into Windows Script Components, ActiveX-enabled script class that can be invoked by other COM-enabled applications</li>
     <li>Has built in regular expressions (not so complete as perl's, but better than original Unix's)</li>
     <li>Has a built in object dictionary (an associative array)</li>
-    <li>Can interact with software as  ActiveX controls, and COM automation servers and components.</li>
+    <li>Can interact with software as  ActiveX controls, and COM automation servers and components using late binding.</li>
     <ul>
     <li>Has built in access to SQL queries to any database having an ODBC driver installed. </li>
     <li>Built in SQL can search WMI, Windows Search,ASDI </li>
@@ -59,20 +59,25 @@
     <li>supports named command line arguments</li>
 		<li>Error reporting including the line number.</li>
     <li>while,for each
-		<li>Can run other apps non-COM, sending intput to their sdin capturing their stdout live and getting their exit code at the end</li> 
+		<li>Can run other non-COM apps, sending input to their sdin capturing their stdout live and getting their exit code at the end</li> 
 </ul>
 
 <p> </p>
 <h3> Cons:</h3>
 <ul>
     <li>The acces to files is only sequential (text or binary), with no random access. </li>
+    <li>false is 0, not false is -1</li>
+    <li>no shift operations on bits. * and  \ (integer division) must be used. </li>
+    <li> Before \ MOD AND OR XOR NOT the double precision numbers are converted to a 32 bit SIGNED integer, so the sign bit must be dealed separately to avoid funny results </li> 
+    
     <li>No preprocessor support, no include, conditional compiling</li>
     <li>No json support. </li>
     <li>Arrays are static, REDIM PRESERVE must be used to change its size, no push-pop</li>
     <li>No wilcards accepted in the filenames passed to folder/file handling functions</li>
     <li>It has not been given new features since Windows XP </li>
-    <li>Spotty Unicode support</li>
-    <li>Strings don't allow indexing to write on them, to modify a string placeholders+ Replace, or regex must be used. Or the string has to be built item by item.</li>
+    <li>Spotty Unicode support wasc and wchr. only UTF32</li>
+    <li>Strings don't allow indexing on write on them, to modify a string :
+    <ul> <li> placeholders+ Replace,</li><li> regex must be used.</li><li> Or the string has to be built by concatenation</li></ul></li>
     <li>Clumsy string indexing for reading asc(mid(s,i,1)) at the place of s[i]</li>
     <li>No way to build a windows form, the official way is to write some html to a file and call Internet Explorer to display it and get user selections from it. </li>
     <li>Windows from XP to W8.1 did'nt support ANSI escape codes  so a console app using them will display garbage on these OS versions.</li>
@@ -92,13 +97,13 @@
     <li>No continue or goto keywords. It has exit do/for/sub/function</li>
     <li>No shift left - shift right, integer division and product must be used </li>
 		<li>Numbers are converted drom Double to SIGNED 32 bit integers for bitwise logic,integer division\ and modulus. bit twiddling is complicated as the sign gets in the way. </li>
-    <li>Sketchy error handling: only On Error Resume Next</li>
+    <li>Sketchy error handling: only On Error Resume Next and the err object</li>
     <li>No formatted output equivalent to printf. Poor format functions, no align right</li>
     <li>Can't redimension or change console size or change charset.</li>
     <li>The requirement to type <i>set fso=CreateObject("Scripting.FileSystemObject")</i> before using any file handling method should be punished by law.</li>
 		<li>Array base can't be changed fom 0</li>
     <li>No short circuit of logical operations. no iif</li>
-		<li>Nothing, Null, Empty (uninitialized)</li>
+		<li>Nothing, Null, Empty (uninitialized) three different null values to juggle with</li>
 </ul>
 
 
