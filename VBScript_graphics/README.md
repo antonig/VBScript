@@ -6,7 +6,11 @@ VBScript has no direct access to the Windows Graphics interface. To get graphics
 ..and exit to its external viewer.This way graphics can be done programmatically, in a non-interactive way.
 WYSIWIG is not possible in VBS, as far i know...
 
-The samples cover two different approaches:
+The samples cover three different approaches:
+
+### mandel.vbs
+ has a class that draws to a BMP (32 or 8 bit) file
+ Drawing a Mandelbrot set requires a little number crunching so the script is slow. It uses an 8 bit images and a custom all-red palette.
 
 ### rastergraphic.vbs 
  has a class that draws to a BMP (32 or 8 bit) file.
@@ -37,6 +41,8 @@ And no mouse or keyboard input is returned to VBS...
 
 ### conways_life.vbs 
 is a sample of an app using ANSI graphics dynamically.
+
+
 
 
 

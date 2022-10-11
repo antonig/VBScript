@@ -1,4 +1,21 @@
-Option explicit
+option explicit
+
+' Raster graphics class in VBSCRIPT by Antoni Gual
+'--------------------------------------------
+' An array keeps the image allowing to set pixels, draw lines and boxes in it. 
+' at class destroy a bmp file is saved to disk and the default viewer is called
+' The class can work with 8 and 24 bit bmp. With 8 bit uses a built-in palette or can import a custom one
+
+
+'Declaration : 
+' Set MyObj = (New ImgClass)(name,width,height, orient,bits_per_pixel,palette_array)
+' name:path and name of the file created
+' width, height of the canvas
+' orient is the way the coord increases, 1 to 4 think of the 4 cuadrants of the caterian plane
+'    1 X:l>r Y:b>t   2 X:r>l Y:b>t  3 X:r>l Y:t>b   4 X:l>r  Y:t>b 
+' bits_per_pixel can bs only 8 and 24
+' palette array only to substitute the default palette for 8 bits, else put a 0
+' it sets the origin at the corner of the image (bottom left if orient=1) 
 
 Class ImgClass
   Private ImgL,ImgH,ImgDepth,bkclr,loc,tt
@@ -7,32 +24,42 @@ Class ImgClass
   private filename   
   private Palette,szpal 
   
-  public property get xmin():xmin=xmini:end property  
-  public property get ymin():ymin=ymini:end property  
-  public property get xmax():xmax=xmaxi:end property  
-  public property get ymax():ymax=ymaxi:end property  
-  public property let depth(x)
-  if x<>8 and x<>32 then err.raise 9
-  Imgdepth=x
-  end property     
+  Public Property Let depth (x) 
+  if depth=8 or depth =24 then 
+    Imgdepth=depth
+  else 
+    Imgdepth=8
+  end if
+  bytepix=imgdepth/8
+  end property        
   
-  public sub set0 (x0,y0) 'sets the new origin (default tlc). The origin does'nt work if ImgArray is accessed directly
-    if x0<0 or x0>=imgl or y0<0 or y0>imgh then err.raise 9 
-    xmini=-x0
-    ymini=-y0
-    xmaxi=xmini+imgl-1
-    ymaxi=ymini+imgh-1    
-  end sub
+  Public Property Let Pixel (x,y,color)
+  If (x>=ImgL) or x<0 then exit property
+  if y>=ImgH or y<0 then exit property
+  ImgArray(x,y)=Color   
+  End Property
   
-  'constructor
+  Public Property Get Pixel (x,y)
+  If (x<ImgL) And (x>=0) And (y<ImgH) And (y>=0) Then
+    Pixel=ImgArray(x,y)
+  End If
+  End Property
+  
+  Public Property Get ImgWidth ()
+  ImgWidth=ImgL-1
+  End Property
+  
+  Public Property Get ImgHeight ()
+  ImgHeight=ImgH-1
+  End Property     
+  
+  'constructor (fn,w*2,h*2,32,0,0)
   Public Default Function Init(name,w,h,orient,dep,bkg,mipal)
   'offx, offy posicion de 0,0. si ofx+ , x se incrementa de izq a der, si offy+ y se incrementa de abajo arriba
   dim i,j
   ImgL=w
   ImgH=h
   tt=timer
-  loc=getlocale
-  ' not useful as we are not using SetPixel and accessing  ImgArray directly
   set0 0,0   'origin blc positive up and right
   redim imgArray(ImgL-1,ImgH-1)
   bkclr=bkg
@@ -85,21 +112,28 @@ Class ImgClass
      )
    End if  
   End Sub
-
-  
-  'class termination writes it to a BMP file and displays it 
-  'if an error happens VBS terminates the class before exiting so the BMP is displayed the same
-  Private Sub Class_Terminate
+  public sub set0 (x0,y0) 'origin can be changed during drawing
+    if x0<0 or x0>=imgl or y0<0 or y0>imgh then err.raise 9 
+    xmini=-x0
+    ymini=-y0
+    xmaxi=xmini+imgl-1
+    ymaxi=ymini+imgh-1 
     
-    if err<>0 then wscript.echo "Error " & err.number
-    wscript.echo "copying image to bmp file"
+  end sub
+
+    
+  Private Sub Class_Terminate
+	if err <>0 then wscript.echo "Error " & err.number
+	wscript.echo "writing bmp to file"
     savebmp
-    wscript.echo "opening " & filename & " with your default bmp viewer"
+    wscript.echo "opening " & filename
     CreateObject("Shell.Application").ShellExecute filename
-    wscript.echo timer-tt & "  iseconds"
+	wscript.echo timer-tt & " seconds"
   End Sub
-  
-    function long2wstr( x)  'falta muy poco!!!
+
+
+ 'writes a 32bit integr value as binary to an utf16 string
+ function long2wstr( x)  'falta muy poco!!!
       dim k1,k2,x1
       k1=  (x and &hffff&)' or (&H8000& And ((X And &h8000&)<>0)))
       k2=((X And &h7fffffff&) \ &h10000&) Or (&H8000& And (x<0))
@@ -111,7 +145,7 @@ Class ImgClass
     End Function
 
 
-   Public Sub SaveBMP
+  Public Sub SaveBMP
     'Save the picture to a bmp file
     Dim s,ostream, x,y,loc
    
@@ -192,102 +226,55 @@ Class ImgClass
       outf.close
     end with
   End Sub
-end class
+End Class
 
+function mandelpx(x0,y0,maxit)
+   dim x,y,xt,i,x2,y2
+   i=0:x2=0:y2=0
+   Do While i< maxit
+     i=i+1
+     xt=x2-y2+x0
+     y=2*x*y+y0
+     x=xt 
+     x2=x*x:y2=y*y 
+     If (x2+y2)>=4 Then Exit do
+   loop 
+   if i=maxit then
+      mandelpx=0
+   else   
+     mandelpx = i
+   end if  
+end function   
 
+Sub domandel(x1,x2,y1,y2) 
+ Dim i,ii,j,jj,pix,xi,yi,ym
+ ym=X.ImgHeight\2
+ 'get increments in the mandel plane
+ xi=Abs((x1-x2)/X.ImgWidth)
+ yi=Abs((y2-0)/(X.ImgHeight\2))
+ j=0
+ For jj=0.  To y2 Step yi
+   i=0
+   For ii=x1 To x2 Step xi
+      pix=mandelpx(ii,jj,256)
+      'use simmetry
+      X.imgarray(i,ym-j)=pix
+      X.imgarray(i,ym+j)=pix
+      i=i+1   
+   Next
+   j=j+1   
+ next
+End Sub
 
-function hsv2rgb( Hue, Sat, Value) 'hue 0-360   0-ro 120-ver 240-az ,sat 0-100,value 0-100
-  dim Angle, Radius,Ur,Vr,Wr,Rdim
-  dim r,g,b, rgb
-  Angle = (Hue-150) *0.01745329251994329576923690768489
-  Ur = Value * 2.55
-  Radius = Ur * tan(Sat *0.01183199)
-  Vr = Radius * cos(Angle) *0.70710678  'sqrt(1/2)
-  Wr = Radius * sin(Angle) *0.40824829  'sqrt(1/6)
-  r = (Ur - Vr - Wr)  
-  g = (Ur + Vr - Wr) 
-  b = (Ur + Wr + Wr) 
-  
-  'clamp values 
- if r >255 then 
-   Rdim = (Ur - 255) / (Vr + Wr)
-   r = 255
-   g = Ur + (Vr - Wr) * Rdim
-   b = Ur + 2 * Wr * Rdim 
- elseif r < 0 then
-   Rdim = Ur / (Vr + Wr)
-   r = 0
-   g = Ur + (Vr - Wr) * Rdim
-   b = Ur + 2 * Wr * Rdim 
- end if 
-
- if g >255 then 
-   Rdim = (255 - Ur) / (Vr - Wr)
-   r = Ur - (Vr + Wr) * Rdim
-   g = 255
-   b = Ur + 2 * Wr * Rdim
- elseif g<0 then   
-   Rdim = -Ur / (Vr - Wr)
-   r = Ur - (Vr + Wr) * Rdim
-   g = 0
-   b = Ur + 2 * Wr * Rdim   
- end if 
- if b>255 then
-   Rdim = (255 - Ur) / (Wr + Wr)
-   r = Ur - (Vr + Wr) * Rdim
-   g = Ur + (Vr - Wr) * Rdim
-   b = 255
- elseif b<0 then
-   Rdim = -Ur / (Wr + Wr)
-   r = Ur - (Vr + Wr) * Rdim
-   g = Ur + (Vr - Wr) * Rdim
-   b = 0
- end If
- 'b lowest byte, red highest byte
- hsv2rgb= ((b and &hff)+256*((g and &hff)+256*(r and &hff))and &hffffff)
-end function
-
-function ang(col,row)
-    'if col =0 then  if row>0 then ang=0 else ang=180:exit function 
-    if col =0 then  
-      if row<0 then ang=90 else ang=270 end if
-    else  
-   if col>0 then
-      ang=atn(-row/col)*57.2957795130
-   else
-     ang=(atn(row/-col)*57.2957795130)+180
-  end if
-  end if
-   ang=(ang+360) mod 360  
-end function 
-
-
-Dim X,row,col,fn,tt,hr,sat,row2
-const h=160
-const w=160
-const rad=159
-const r2=25500
-tt=timer
-fn=CreateObject("Scripting.FileSystemObject").GetSpecialFolder(2)& "\testwchr.bmp"
-Set X = (New ImgClass)(fn,w*2,h*2,1,32,0,0)
-
-x.set0 w,h
-'wscript.echo x.xmax, x.xmin
-
-for row=x.xmin+1 to x.xmax
-   row2=row*row
-   hr=int(Sqr(r2-row2))
-   For col=hr To 159
-     Dim a:a=((col\16 +row\16) And 1)* &hffffff
-     x.imgArray(col+160,row+160)=a 
-     x.imgArray(-col+160,row+160)=a 
-   next    
-   for col=-hr to hr
-     sat=100-sqr(row2+col*col)/rad *50
-    ' wscript.echo c,r
-     x.imgArray(col+160,row+160)=hsv2rgb(ang(row,col)+90,100,sat)
-    next
-    'script.echo row
-  next  
+'main------------------------------------
+Dim i,x
+'custom palette
+dim pp(255)
+for i=1 to 255
+   pp(i)=rgb(0,0,255*(i/255)^.25)  'VBS' RGB function is for the web, it's bgr for Windows BMP !!
+next  
+ 
+dim fn:fn=CreateObject("Scripting.FileSystemObject").GetSpecialFolder(2)& "\mandel.bmp"
+Set X = (New ImgClass)(fn,580,480,1,8,0,pp)
+domandel -2.5,0.7,-1.2,1.2
 Set X = Nothing
-
