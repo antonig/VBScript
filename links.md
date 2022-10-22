@@ -3,6 +3,7 @@
 ## The reference
 https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/scripting-articles/d1et7k7c(v=vs.84)
 
+
 ## Outstanding vbscript apps
 
 ### A bar code generator
@@ -11,7 +12,10 @@ https://github.com/yas78/QRCodeLibVBS
 ### smjburton VBS json parser
 https://github.com/smjburton/v_JSON
 
-## Code samples
+## Code samples and ideas
+
+### the Microsoft Scripting Guy blog, filtered by VBScript
+https://devblogs.microsoft.com/search?query=VBSCRIPT&blog=%2Fscripting%2F
 
 ### Interesting examples on how to use Windows' dlls as wia
 https://www.jsware.net/jsware/boss.php5
