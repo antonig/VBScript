@@ -26,6 +26,9 @@ https://www.activexperts.com/admin/scripts/vbscript/
 ### VBS pages in Rob van der Woude's Windows scripting site
 https://www.robvanderwoude.com/vbstech.php
 
+### Random number generators better than the one built in VBS
+https://www.rlmueller.net/Numbers.htm
+
 ## software
 
 ### a free dll allowing to do non interactive but LIVE graphics in VBS (640x480)
