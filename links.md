@@ -3,6 +3,8 @@
 ## The reference
 https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/scripting-articles/d1et7k7c(v=vs.84)
 
+## the newsgroup microsoft.public.scripting.vbscript
+https://groups.google.com/g/microsoft.public.scripting.vbscript
 
 ## Outstanding vbscript apps
 
