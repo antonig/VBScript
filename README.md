@@ -51,3 +51,6 @@ A try to get straighfortward string formatting functions copying c#'s string int
 ## rosetta_notdone
 Web scrapping Rosetta code to list tasks not done in VBScript
 
+## misudoku2
+Sudoku solver using simple strategies and if needed, brute force. Can get problems from text files in different formats. See command line options.
+
