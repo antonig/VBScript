@@ -38,7 +38,7 @@ Some snippets i find useful
 ## prio
 Handy priority queue class.
 
-## persistent dict
+## serialize_dict
 Class To save And recover a dictionary To/from a file. The dictionary can have Array items
 
 ## srt_time_offset
@@ -49,7 +49,7 @@ Calculates sunrise and sunset time in civil time or any position under the polar
 Gives results +/- 1 min of the results provides by the US Naval Observatory site.
 
 ## printf sprintf
-A try to get straighfortward string formatting functions copying c#'s string interpolation
+A try to get straighforward string formatting functions copying c#'s string interpolation
 
 ## rosetta_notdone
 Web scrapping Rosetta code to list tasks not done in VBScript
