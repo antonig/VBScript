@@ -168,12 +168,10 @@ Class ImgClass
   End Sub
 
   'writes a 32bit integr value as binary to an utf16 string
- function long2wstr( x)  'falta muy poco!!!
-      dim k1,k2,x1
-      k1=  (x and &hffff&)' or (&H8000& And ((X And &h8000&)<>0)))
-      k2=((X And &h7fffffff&) \ &h10000&) Or (&H8000& And (x<0))
-      long2wstr=chrw(k1) & chrw(k2)
-    end function 
+function long2wstr( x) 
+   long2wstr=chrw(x and &hffff&) + ChrW(((X And &h7fffffff&) \ &h10000&) Or (&H8000& And (x<0))) 
+end Function
+
     
     function int2wstr(x)
         int2wstr=ChrW((x and &h7fff) or (&H8000 And (X<0)))
