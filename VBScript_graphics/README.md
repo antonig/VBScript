@@ -28,6 +28,9 @@ The samples cover three different approaches:
  It has a turtle graphics interface. Added an L-System interpreter, the L-system is defined in a dictionary. 
  The demo draws a Sierpinski triangle
 
+## Use the Windows image Acquisition dll to convert the image to jpg or gif and use HTA to diplay it
+Check https://www.jsware.net/jsware/scrfiles.php5#wiaed
+
 ## Use the free vbs_gfx helper program 
 It opens a 640x480 window and allows to set pixels  in real time.
 vbs_gfx was made by the french teacher Philippe Haubenestel in 2009-2011 and is available at http://tp.nexgate.ch/vbs_gfx/

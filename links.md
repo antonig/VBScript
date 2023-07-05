@@ -3,6 +3,8 @@
 ## The reference
 https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/scripting-articles/d1et7k7c(v=vs.84)
 
+## the newsgroup microsoft.public.scripting.vbscript
+https://groups.google.com/g/microsoft.public.scripting.vbscript
 
 ## Outstanding vbscript apps
 
@@ -25,6 +27,9 @@ https://www.activexperts.com/admin/scripts/vbscript/
 
 ### VBS pages in Rob van der Woude's Windows scripting site
 https://www.robvanderwoude.com/vbstech.php
+
+### Random number generators better than the one built in VBS
+https://www.rlmueller.net/Numbers.htm
 
 ## software
 
