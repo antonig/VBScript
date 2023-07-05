@@ -38,6 +38,9 @@ Some snippets i find useful
 ## prio
 Handy priority queue class.
 
+## persistent dict
+Class To save And recover a dictionary To/from a file. The dictionary can have Array items
+
 ## srt_time_offset
 Adds/substracts an offset to all times in a SRT video subtitle file.
 
