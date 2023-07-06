@@ -237,11 +237,7 @@ function mandelpx(x0,y0,maxit)
      x2=x*x:y2=y*y 
      If (x2+y2)>=4 Then Exit do
    loop 
-   if i=maxit then
-      mandelpx=0
-   else   
-     mandelpx = i
-   end if  
+      mandelpx=i And(i<maxit)
 end function   
 
 Sub domandel(x1,x2,y1,y2) 
