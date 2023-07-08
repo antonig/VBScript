@@ -229,11 +229,9 @@ End Class
 function mandelpx(x0,y0)
    dim x,y,xt,x2,y2
    mandelpx=0:x=x0:y=y0:x2=x*x:y2=y*y
-   For mandelpx=0 To 255
-     mandelpx=mandelpx+1
+   For mandelpx=1 To 255
      xt=x2-y2+x0
-     y=2.*x*y+y0
-     x=xt 
+     y=2.*x*y+y0:x=xt 
      x2=x*x:y2=y*y 
     If (x2+y2)>=4. Then Exit function 
    next
@@ -271,5 +269,5 @@ pp(256)=0
  
 dim fn:fn=CreateObject("Scripting.FileSystemObject").GetSpecialFolder(2)& "\mandel.bmp"
 Set X = (New ImgClass)(fn,580,480,1,8,0,pp)
-domandel -2.,1.,-1.2,1.2
+domandel -2.2,0.8,-1.17,1.17
 Set X = Nothing
