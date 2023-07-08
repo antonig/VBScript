@@ -379,7 +379,7 @@ const pi=3.1415926535897932384626433832795 'pi
 
 function hsv2rgb( Hue, Sat, Value) 'hue 0-360   0-ro 120-ver 240-az ,sat 0-100,value 0-100
   dim Angle, Radius,Ur,Vr,Wr,Rdim
-  dim r,g,b, rgb
+  dim r,g,b
   Angle = (Hue-150) *pi180
   Ur = Value * 2.55
   Radius = Ur * tan(Sat *0.01183199)
@@ -390,6 +390,8 @@ function hsv2rgb( Hue, Sat, Value) 'hue 0-360   0-ro 120-ver 240-az ,sat 0-100,v
   b = (Ur + Wr + Wr) 
   
   'clamp values 
+ Do
+ Rdim=0 
  if r >255 then 
    Rdim = (Ur - 255) / (Vr + Wr)
    r = 255
@@ -423,8 +425,10 @@ function hsv2rgb( Hue, Sat, Value) 'hue 0-360   0-ro 120-ver 240-az ,sat 0-100,v
    r = Ur - (Vr + Wr) * Rdim
    g = Ur + (Vr - Wr) * Rdim
    b = 0
- end if
- hsv2rgb= (b and &hff)+256*((g and &hff)+256*(r and &hff))
+ end If
+ Loop until Rdim=0
+ hsv2rgb=RGB(b,g,r)
+ 'hsv2rgb= (b and &hff)+256*((g and &hff)+256*(r and &hff))
 
 end function
 

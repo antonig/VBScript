@@ -229,19 +229,14 @@ End Class
 function mandelpx(x0,y0,maxit)
    dim x,y,xt,i,x2,y2
    i=0:x2=0:y2=0
-   Do While i< maxit
-     i=i+1
+   Do 
+     i=i+1: If i=maxit Then Exit do
      xt=x2-y2+x0
      y=2*x*y+y0
      x=xt 
      x2=x*x:y2=y*y 
-     If (x2+y2)>=4 Then Exit do
-   loop 
-   if i=maxit then
-      mandelpx=0
-   else   
-     mandelpx = i
-   end if  
+    Loop until (x2+y2)>=4 
+   mandelpx = i And(i<>maxit)
 end function   
 
 Sub domandel(x1,x2,y1,y2) 
@@ -270,7 +265,7 @@ Dim i,x
 'custom palette
 dim pp(255)
 for i=1 to 255
-   pp(i)=rgb(0,0,255*(i/255)^.25)  'VBS' RGB function is for the web, it's bgr for Windows BMP !!
+   pp(i)=rgb(0,0,fix(255*(i/255)^.25) And &hff)  'VBS' RGB function is for the web, it's bgr for Windows BMP !!
 next  
  
 dim fn:fn=CreateObject("Scripting.FileSystemObject").GetSpecialFolder(2)& "\mandel.bmp"
