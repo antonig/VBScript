@@ -226,19 +226,17 @@ end Function
   End Sub
 End Class
 
-function mandelpx(x0,y0,maxit)
-   dim x,y,xt,i,x2,y2
-   i=0:x2=0:y2=0
-   Do 
-     i=i+1: If i=maxit Then Exit do
+function mandelpx(x0,y0)
+   dim x,y,xt,x2,y2
+   mandelpx=0:x=x0:y=y0:x2=x*x:y2=y*y
+   For mandelpx=0 To 255
+     mandelpx=mandelpx+1
      xt=x2-y2+x0
-     y=2*x*y+y0
+     y=2.*x*y+y0
      x=xt 
      x2=x*x:y2=y*y 
-    Loop until (x2+y2)>=4 
-   mandelpx = i And(i<>maxit)
-
-
+    If (x2+y2)>=4. Then Exit function 
+   next
 end function   
 
 Sub domandel(x1,x2,y1,y2) 
@@ -251,7 +249,7 @@ Sub domandel(x1,x2,y1,y2)
  For jj=0.  To y2 Step yi
    i=0
    For ii=x1 To x2 Step xi
-      pix=mandelpx(ii,jj,256)
+      pix=mandelpx(ii,jj)
       'use simmetry
       X.imgarray(i,ym-j)=pix
       X.imgarray(i,ym+j)=pix
@@ -265,10 +263,11 @@ End Sub
 'main------------------------------------
 Dim i,x
 'custom palette
-dim pp(255)
-for i=1 to 255
-   pp(i)=rgb(0,0,fix(255*(i/255)^.25) And &hff)  'VBS' RGB function is for the web, it's bgr for Windows BMP !!
-next  
+dim pp(256)
+for i=0 to 255
+   pp(i)=rgb(0,0,Int(255*((i/255)^.25)))  'VBS' RGB function is for the web, it's bgr for Windows BMP !!
+Next
+pp(256)=0  
  
 dim fn:fn=CreateObject("Scripting.FileSystemObject").GetSpecialFolder(2)& "\mandel.bmp"
 Set X = (New ImgClass)(fn,580,480,1,8,0,pp)
