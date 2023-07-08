@@ -227,13 +227,13 @@ end Function
 End Class
 
 function mandelpx(x0,y0)
-   dim x,y,xt,x2,y2
-   mandelpx=0:x=x0:y=y0:x2=x*x:y2=y*y
+   dim x,y,xt,x2,y2,x1,y1
+   x=CDbl(x0):y=CDbl(y0):x2=x*x:y2=y*y:x1=x:y1=y
    For mandelpx=1 To 255
-     xt=x2-y2+x0
-     y=2.*x*y+y0:x=xt 
+     If (x2+y2)>4. Then Exit function 
+     xt=x2-y2+x1
+     y=2.*x*y+y1:x=xt 
      x2=x*x:y2=y*y 
-    If (x2+y2)>4. Then Exit function 
    next
 end function   
 
@@ -263,7 +263,7 @@ Dim i,x
 'custom palette
 dim pp(256)
 for i=0 to 255
-   pp(i)=rgb(0,0,Int(255*((i/255)^.25)))  'VBS' RGB function is for the web, it's bgr for a Windows BMP !!
+   pp(i)=rgb(0,0,Int(255.*((i/255.)^.25)))  'VBS' RGB function is for the web, it's bgr for a Windows BMP !!
 Next
 pp(256)=0  
  
