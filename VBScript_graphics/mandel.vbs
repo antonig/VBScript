@@ -233,7 +233,7 @@ function mandelpx(x0,y0)
      xt=x2-y2+x0
      y=2.*x*y+y0:x=xt 
      x2=x*x:y2=y*y 
-    If (x2+y2)>=4. Then Exit function 
+    If (x2+y2)>4. Then Exit function 
    next
 end function   
 
@@ -263,7 +263,7 @@ Dim i,x
 'custom palette
 dim pp(256)
 for i=0 to 255
-   pp(i)=rgb(0,0,Int(255*((i/255)^.25)))  'VBS' RGB function is for the web, it's bgr for Windows BMP !!
+   pp(i)=rgb(0,0,Int(255*((i/255)^.25)))  'VBS' RGB function is for the web, it's bgr for a Windows BMP !!
 Next
 pp(256)=0  
  
