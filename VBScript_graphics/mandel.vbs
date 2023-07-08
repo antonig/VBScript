@@ -237,6 +237,8 @@ function mandelpx(x0,y0,maxit)
      x2=x*x:y2=y*y 
     Loop until (x2+y2)>=4 
    mandelpx = i And(i<>maxit)
+
+
 end function   
 
 Sub domandel(x1,x2,y1,y2) 
