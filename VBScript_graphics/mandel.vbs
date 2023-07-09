@@ -263,7 +263,7 @@ Dim i,x
 'custom palette
 dim pp(256)
 for i=0 to 255
-   pp(i)=rgb(0,0,Int(255.*((i/255.)^.25)))  'VBS' RGB function is for the web, it's bgr for a Windows BMP !!
+   pp(i)=rgb(0,0,(255.*((i/255.)^.25)))  'VBS' RGB function is for the web, it's bgr for a Windows BMP !!
 Next
 pp(256)=0  
  
