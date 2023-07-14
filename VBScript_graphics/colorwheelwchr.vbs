@@ -1,4 +1,5 @@
 Option explicit
+'draws a colorwheel using the hsv colorspace, exports it to a bmp and displays it using the default viewer
 
 Class ImgClass
   Private ImgL,ImgH,ImgDepth,bkclr,loc,tt
@@ -96,7 +97,7 @@ Class ImgClass
     savebmp
     wscript.echo "opening " & filename & " with your default bmp viewer"
     CreateObject("Shell.Application").ShellExecute filename
-    wscript.echo timer-tt & "  iseconds"
+    wscript.echo timer-tt & "  seconds"
   End Sub
   
  'writes a 32bit integr value as binary to an utf16 string
@@ -197,7 +198,7 @@ end class
 
 function hsv2rgb( Hue, Sat, Value) 'hue 0-360   0-ro 120-ver 240-az ,sat 0-100,value 0-100
   dim Angle, Radius,Ur,Vr,Wr,Rdim
-  dim r,g,b, rgb
+  dim r,g,b
   Angle = (Hue-150) *0.01745329251994329576923690768489
   Ur = Value * 2.55
   Radius = Ur * tan(Sat *0.01183199)
@@ -207,7 +208,9 @@ function hsv2rgb( Hue, Sat, Value) 'hue 0-360   0-ro 120-ver 240-az ,sat 0-100,v
   g = (Ur + Vr - Wr) 
   b = (Ur + Wr + Wr) 
   
-  'clamp values 
+  'clamp values
+ Do
+  Rdim=0 
  if r >255 then 
    Rdim = (Ur - 255) / (Vr + Wr)
    r = 255
@@ -242,8 +245,10 @@ function hsv2rgb( Hue, Sat, Value) 'hue 0-360   0-ro 120-ver 240-az ,sat 0-100,v
    g = Ur + (Vr - Wr) * Rdim
    b = 0
  end If
+ Loop until Rdim=0
  'b lowest byte, red highest byte
- hsv2rgb= ((b and &hff)+256*((g and &hff)+256*(r and &hff))and &hffffff)
+ hsv2rgb=RGB(b,g,r)
+ 'hsv2rgb= ((b and &hff)+256*((g and &hff)+256*(r and &hff))and &hffffff)
 end function
 
 function ang(col,row)
