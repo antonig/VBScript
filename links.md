@@ -14,13 +14,19 @@ https://github.com/yas78/QRCodeLibVBS
 ### smjburton VBS json parser
 https://github.com/smjburton/v_JSON
 
-## Code samples and ideas
+## Code samples, documentantion and ideas
 
 ### the Microsoft Scripting Guy blog, filtered by VBScript
 https://devblogs.microsoft.com/search?query=VBSCRIPT&blog=%2Fscripting%2F
 
 ### Interesting examples on how to use Windows' dlls as wia
 https://www.jsware.net/jsware/boss.php5
+
+### A hidden folder in an Astronomy site full off VBS tools, docs and examples (nothing about astronomy). A Hey Scripting guy bundle, the scriptomatic, the component wizard, the script debugger....
+skybadger.net/scripting/platform/ 
+
+### the only place where i could find the original script encoder
+http://tipsfromtheserverroom.com/scripting/
 
 ### A ton of administrative scripts (what VBS was designed to do...)
 https://www.activexperts.com/admin/scripts/vbscript/
