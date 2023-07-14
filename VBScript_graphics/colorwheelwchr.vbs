@@ -208,9 +208,11 @@ function hsv2rgb( Hue, Sat, Value) 'hue 0-360   0-ro 120-ver 240-az ,sat 0-100,v
   g = (Ur + Vr - Wr) 
   b = (Ur + Wr + Wr) 
   
-  'clamp values
+
+  'clamp values 
  Do
-  Rdim=0 
+ Rdim=0 
+
  if r >255 then 
    Rdim = (Ur - 255) / (Vr + Wr)
    r = 255
@@ -245,11 +247,13 @@ function hsv2rgb( Hue, Sat, Value) 'hue 0-360   0-ro 120-ver 240-az ,sat 0-100,v
    g = Ur + (Vr - Wr) * Rdim
    b = 0
  end If
+
  Loop until Rdim=0
  'b lowest byte, red highest byte
  hsv2rgb=RGB(b,g,r)
- 'hsv2rgb= ((b and &hff)+256*((g and &hff)+256*(r and &hff))and &hffffff)
+
 end function
+
 
 function ang(col,row)
     'if col =0 then  if row>0 then ang=0 else ang=180:exit function 
@@ -266,7 +270,7 @@ function ang(col,row)
 end function 
 
 
-Dim X,row,col,fn,tt,hr,sat,row2
+Dim X,row,col,fn,tt,hr,sat,row2,r160
 const h=160
 const w=160
 const rad=159
@@ -280,16 +284,18 @@ x.set0 w,h
 
 for row=x.xmin+1 to x.xmax
    row2=row*row
+   r160=row+160
    hr=int(Sqr(r2-row2))
    For col=hr To 159
      Dim a:a=((col\16 +row\16) And 1)* &hffffff
-     x.imgArray(col+160,row+160)=a 
-     x.imgArray(-col+160,row+160)=a 
-   next    
+     x.imgArray(col+160,r160)=a 
+     x.imgArray(-col+160,r160)=a 
+   next  
+     
    for col=-hr to hr
      sat=100-sqr(row2+col*col)/rad *50
     ' wscript.echo c,r
-     x.imgArray(col+160,row+160)=hsv2rgb(ang(row,col)+90,100,sat)
+     x.imgArray(col+160,r160)=hsv2rgb(ang(row,col)+90,100,sat)
     next
     'script.echo row
   next  
