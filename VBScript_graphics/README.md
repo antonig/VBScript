@@ -29,8 +29,8 @@ The samples cover three different approaches:
 ![testwchr](https://github.com/user-attachments/assets/c49aa65a-b157-4b38-a2ae-259f0d9351cc)
 
 ### turtle_graphics.vbs: 
- has a class that issues SVG vectorial graphic commands to an HTML file.
- It has a turtle graphics interface. Added an L-System interpreter, the L-system is defined in a dictionary. 
+ It has a class that issues SVG vectorial graphic commands and wrap them in a HTML file.
+ The class uses  turtle graphics commands. I added it an L-System interpreter, the L-system is defined in a dictionary. 
  The demo draws a Sierpinski triangle.
  
 ![Captura de pantalla 2025-08-14 161646](https://github.com/user-attachments/assets/bcf2b361-c3a6-4136-a4be-f4c5aa9ee4ee)
@@ -40,8 +40,7 @@ The samples cover three different approaches:
 Check https://www.jsware.net/jsware/scrfiles.php5#wiaed
 
 ## Use the free vbs_gfx helper program 
-It opens a 640x480 window and allows to set pixels  in real time.
-vbs_gfx was made by the french teacher Philippe Haubenestel in 2009-2011 and is available at http://tp.nexgate.ch/vbs_gfx/
+The helper program opens a 640x480 window and allows to set pixels  in real time. vbs_gfx was made by the Swiss teacher Philippe Haubenestel in 2009-2011 and is available at http://tp.nexgate.ch/vbs_gfx/
 The age of the program shows in the window size. Only two primitives: put pixel and draw line. It's not supported anymore. 
 And no mouse or keyboard input is returned to VBS... 
 
@@ -49,11 +48,11 @@ And no mouse or keyboard input is returned to VBS...
 
 ## Use ANSI escape codes in console
  This allows to locate text, to get colors or box drawing characters. 
- Unfortunately windows from 2000 to 8.1 don't recognise ANSI codes, showing as garbage on the console. 
- Win 10 or 11 is required (or the old Win98)
+ Unfortunately windows from 2000 to Win 8.1 don't recognise ANSI codes, showing them as garbage on the console. 
+ Win 98 , 10 or 11 is required.
 
 ### conways_life.vbs 
-is a sample of an app using ANSI graphics dynamically. I did'nt worry with color but it's possible too.
+It's a sample of an app using ANSI graphics dynamically. I did'nt worry with color but it's possible to add it.
 
 ![Captura de pantalla 2025-08-14 161211](https://github.com/user-attachments/assets/8932e05b-bbc8-4259-8b98-5ca84fb4c071)
 
