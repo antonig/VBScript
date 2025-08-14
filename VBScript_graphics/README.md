@@ -10,14 +10,16 @@ The samples cover three different approaches:
 
 ### mandel.vbs
  has a class that draws to a BMP (32 or 8 bit) file
- Drawing a Mandelbrot set requires a little number crunching so the script is slow. It uses an 8 bit images and a custom all-red palette.
+ Drawing a Mandelbrot set requires a little number crunching so the script is slow. It creates an 8 bit image and a custom all-red palette.
+ 
 ![mandel](https://github.com/user-attachments/assets/fb4d489c-f7e9-40a1-b932-31e48f606b40)
 
 ### rastergraphic.vbs 
  has a class that draws to a BMP (32 or 8 bit) file.
  The program supplies a palette for 8 bits but a custom one can be provided. 
  Only 4 primitives: pixel, line, circle and filled box at the moment
- The demo does two drawings, a colorwheel in 32 bits and displays the palette and a couple of primitives in 8 bits
+ The demo does two drawings, a colorwheel in 32 bits and displays the palette and a couple of primitives in 8 bits.
+ 
 ![test8wchr](https://github.com/user-attachments/assets/9121c299-246c-4ac5-9510-60b8d01087e1)
 
 ### colorwheelwchar.vbs 
@@ -29,7 +31,8 @@ The samples cover three different approaches:
 ### turtle_graphics.vbs: 
  has a class that issues SVG vectorial graphic commands to an HTML file.
  It has a turtle graphics interface. Added an L-System interpreter, the L-system is defined in a dictionary. 
- The demo draws a Sierpinski triangle
+ The demo draws a Sierpinski triangle.
+ 
 ![Captura de pantalla 2025-08-14 161646](https://github.com/user-attachments/assets/bcf2b361-c3a6-4136-a4be-f4c5aa9ee4ee)
 
 
@@ -50,7 +53,8 @@ And no mouse or keyboard input is returned to VBS...
  Win 10 or 11 is required (or the old Win98)
 
 ### conways_life.vbs 
-is a sample of an app using ANSI graphics dynamically.
+is a sample of an app using ANSI graphics dynamically. I did'nt worry with color but it's possible too.
+
 ![Captura de pantalla 2025-08-14 161211](https://github.com/user-attachments/assets/8932e05b-bbc8-4259-8b98-5ca84fb4c071)
 
 
